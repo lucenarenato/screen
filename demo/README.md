@@ -23,3 +23,46 @@ You can also set a user agent string to be used on the request: `shot.php?url=go
 ## clean-jobs.php
 
 Here you can se an example on how to delete the job files that are generated automatically.
+
+
+## Commands
+```
+composer require microweber/screen
+composer require jakoch/phantomjs-installer microweber/screen
+
+php -S localhost:8001
+```
+
+## Caso tenha algum problema
+```
+sudo apt-get install -y php7.2-bz2
+composer require jakoch/phantomjs-installer microweber/screen
+php -d memory_limit=4G $(which composer) install 
+php -d memory_limit=4G $(which composer) update
+```
+
+<p align="center"><img src="captura.png"></p>
+
+## Uso no Laravel 6
+
+```php
+use Screen\Capture;
+public function iframeType($src) 
+    {
+        $url = $src;
+        $screenCapture = new Capture($url);
+        $screenCapture->setWidth(1024);
+        $screenCapture->setHeight(768);
+        $screenCapture->setImageType('png');
+
+        //$fileLocation = Storage::disk('temp')->put('screenshot_iframe.png', Storage::disk('temp')->get('screenshot_iframe.png')); 
+        $fileLocation =storage_path('/app/public/screenshot.png');
+
+        $screenCapture->save($fileLocation); // Will automatically determine the extension type
+        //echo $screenCapture->getImageLocation();
+        
+        return $screenCapture->getImageLocation();
+    }
+```    
+- Renato Lucena 
+- [Renato Lucena](https://github.com/lucenarenato)
